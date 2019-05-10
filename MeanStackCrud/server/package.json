@@ -1,0 +1,28 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "CrudExample"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "express-fileupload": "^1.1.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.5.6",
+    "multer": "^1.4.1",
+    "mv": "^2.1.1",
+    "nodemailer": "^6.1.1",
+    "nodemon": "^1.19.0"
+  }
+}

@@ -1,0 +1,59 @@
+<div class="col-md-6">
+    <h2 class="text-center">Edit-User</h2>
+    <form [formGroup]="editForm" (submit)="onSubmit()" enctype="multipart/form-data">
+ 
+      <div class='form-group'>
+         <label for="email">Email Address :</label>
+         <input type="email" formControlName="email" name="email" class="form-control" >
+         <div *ngIf="submitted && f['email'].errors" class="lbl-err">
+            <div *ngIf="f['email'].errors.required" >Email is required</div>
+        </div>
+      </div>
+      
+      <div class='form-group'>
+          <label for="password">Password:</label>
+          <input type="password" formControlName="password" name="password" class="form-control" >
+       </div>
+       
+      <div class='form-group'>
+          <label for="firstName"> First Name:</label>
+          <input type="text" placeholder="FirstName" formControlName="firstName"  name="firstName" class="form-control">
+          <div *ngIf="submitted && f['firstName'].errors" class="lbl-err">
+              <div *ngIf="f['firstName'].errors.required" >firstName is required</div>
+          </div>
+      </div>
+      
+      <div class='form-group'>
+          <label for="lastName"> Last Name:</label>
+          <input type="text" placeholder="LastName" formControlName="lastName"  name="lastName" class="form-control">
+          <div *ngIf="submitted && f['lastName'].errors" class="lbl-err">
+              <div *ngIf="f['lastName'].errors.required" >lastName is required</div>
+          </div>
+      </div>
+      
+      <div>
+          <label for="gender">Gender:</label>
+          &nbsp;  &nbsp;  Male <input type="radio" placeholder="gender"  formControlName="gender" value="male"> &nbsp;  &nbsp;  Female  <input type="radio" placeholder="gender"  formControlName="gender" value="female" >
+          <div *ngIf="submitted && f['gender'].errors" class="lbl-err">
+              <div *ngIf="f['gender'].errors.required" >gender is required</div>
+          </div>
+        </div>
+      
+      <div class='form-group'>
+          <label for="image">Image File upload:</label>
+          <input type="file" formControlName="image" (change)="onFileChange($event)" id="image"  name="file" class="form-control">
+      </div>
+  
+      <div class='form-group' *ngIf="url">
+         <img src="{{imgUrl + url}}" height="50px" width="50px">
+      </div>
+  
+      <div class='form-group'>
+          <label for="pdf"> pdf File upload  :</label>
+          <input type="file" formControlName="pdf" (change)="onFileChanges($event)"  name="pfile" class="form-control">
+      </div>
+      
+  
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div>

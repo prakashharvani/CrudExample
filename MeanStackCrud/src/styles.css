@@ -1,0 +1,60 @@
+/* You can add global styles to this file, and also import other style files */
+.toast-top-right { 
+    top: 500px; 
+    right: 25px; 
+    /* bottom: 50px; 
+    left: 50px;  */
+    margin: 0; 
+    opacity: 1; 
+    }
+    #toast-container .toast-success { 
+
+        border-radius: 5px; 
+        -webkit-border-radius: 5px; 
+        -moz-border-radius: 5px; 
+        border-left: 4px solid #4CB400; 
+        padding: 14px; 
+        font-size: 16px; 
+        width:500px;
+        font-weight: 500; 
+        color: #212121; 
+        font-family: 'Exo 2', sans-serif; 
+        background: #fff; 
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16); 
+        -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16); 
+        -moz-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16); 
+        }
+    
+        #toast-container .toast-error { 
+        
+        border-radius: 5px; 
+        -webkit-border-radius: 5px; 
+        -moz-border-radius: 5px; 
+        border-left: 4px solid red; 
+        padding: 14px; 
+        font-size: 16px; 
+        font-weight: 500; 
+        width:500px;
+        color: #212121; 
+        font-family: 'Exo 2', sans-serif; 
+        background: #fff; 
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16); 
+        -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16); 
+        -moz-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16); 
+        }
+        #toast-container .toast-warning { 
+
+            border-radius: 5px; 
+            -webkit-border-radius: 5px; 
+            -moz-border-radius: 5px; 
+            border-left: 4px solid #ec7a06; 
+            padding: 14px; 
+            font-size: 16px; 
+            font-weight: 500; 
+            color: #212121; 
+            font-family: 'Exo 2', sans-serif; 
+            background: #fff; 
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16); 
+            -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16); 
+            -moz-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16); 
+            }

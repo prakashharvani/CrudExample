@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-2">
+      <h1>Login </h1> 
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+              <label for="email">Email address:</label>
+              <input type="text" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" >
+              <div *ngIf="submitted && f['email'].errors" class="lbl-err">
+                  <div *ngIf="f['email'].errors.required" >Email is required</div>
+              </div>
+           </div>
+    
+            <div class="form-group">
+              <label for="pwd">Password:</label>
+              <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+              <div *ngIf="submitted && f['password'].errors" class="lbl-err">
+                  <p *ngIf="f['password'].errors.required" >Password is required</p>
+              </div>
+            </div>
+            
+            <button class="btn btn-default">Login</button>
+            <div *ngIf="invalidLogin" class="error">
+              <div>Invalid credentials.</div>
+            </div>
+        </form>
+  </div>
+</div>
