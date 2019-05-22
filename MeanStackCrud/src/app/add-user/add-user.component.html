@@ -1,5 +1,8 @@
+<br><br>
 <div class="col-md-6">
-    <h2 class="text-center">Add-User</h2>
+    <button class="btn btn-info" (click)="backToList()"> Back</button>
+    <h2 class="text-center" style=" margin-top: -35px;">Add-User</h2>
+    <hr>
     <form [formGroup]="addForm" (submit)="onSubmit()" enctype="multipart/form-data">
  
       <div class='form-group'>
@@ -9,6 +12,14 @@
             <div *ngIf="f['email'].errors.required" >Email is required</div>
         </div>
       </div>
+
+      <div class='form-group'>
+        <label for="mobileNumber"> Mobile Number :</label>
+        <input type="mobileNumber" formControlName="mobileNumber" name="mobileNumber" class="form-control" >
+        <div *ngIf="submitted && f['mobileNumber'].errors" class="lbl-err">
+           <div *ngIf="f['mobileNumber'].errors.required" >Mobile Number is required</div>
+       </div>
+     </div>
       
       <div class='form-group'>
           <label for="password">Password:</label>
@@ -63,6 +74,7 @@
       </div>
       
   
-      <button type="submit" class="btn btn-success">Submit</button>
+      <button type="submit" class="btn btn-success">Submit</button> &nbsp;
+      <button type="reset" class="btn btn-success">Reset</button>
     </form>
   </div>

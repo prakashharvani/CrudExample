@@ -1,16 +1,22 @@
+var mongoose = require('mongoose');
+
 const usermodel = require('../model/userModel');
+const UserMaster = mongoose.model('user', usermodel.userSchema);
+
+const dao = require('../dao/baseDao');
 // var mv = require('mv');
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
-var mongoose = require('mongoose');
+const superAdminDetail = require('./superAdminDetails')
 
 
 class Usercontroller {
     insertUser(req, res) {
-        var { firstName, lastName, email, password, gender } = req.body;
+        var { firstName, mobileNumber, lastName, email, password, gender } = req.body;
 
         var userData = {
+            mobileNumber: mobileNumber,
             firstName: firstName,
             lastName: lastName,
             email: email,
@@ -32,8 +38,63 @@ class Usercontroller {
     }
 
     getallUser(req, res) {
-        usermodel.find().then((data) => {
-            res.send({ status: 200, data: data });
+
+        let userDao = new dao(UserMaster);
+        let query = {
+            email: {
+                $not: {
+                    $eq: superAdminDetail.superAdmin.email
+                }
+            }
+        };
+
+        let option = {
+            sort: {
+                'createdAt': -1
+            }
+        };
+        var columnName = null
+        var clumnValue = null
+        var key = null
+        var cname = null
+        if (req.body['search']['value']) {
+            query['$or'] = [];
+        }
+
+        // for global search
+        for (let i = 0; i < 5; i++) {
+            // for if null value
+            if (req.body['search']['value']) {
+
+                if (req.body['columns'][i]['data']) {
+                    columnName = req.body['columns'][i]['data']
+                    clumnValue = req.body['search']['value'];
+                    key = columnName,
+                        query['$or'].push({
+                            [key]: {
+                                $regex: clumnValue,
+                                $options: 'i'
+                            }
+                        })
+                }
+
+            }
+            if (req.body['order'][0]['column'] == i) {
+                cname = req.body['columns'][i]['data'];
+                option = {
+                    sort: {
+                        [cname]: (req.body['order'][0]['dir'] == 'asc') ? 1 : -1
+                    }
+                };
+            }
+        }
+
+        option['offset'] = parseInt(req.body['start']);
+        option['limit'] = parseInt(req.body['length']);
+        option['collation'] = { locale: "en_US", numericOrdering: true }
+
+        userDao.findWithPeginate(query, option).then((data) => {
+            res.send({ status: 200, data: data })
         }).catch((err) => {
             res.send({ status: 400, message: err.message });
         });
@@ -55,14 +116,14 @@ class Usercontroller {
         usermodel.findOne(em).then((data) => {
 
             bcrypt.compare(pass, data.password).then((result) => {
-                if(result){
+                if (result) {
                     const token = jwt.sign(em, 'abcdef', { expiresIn: '1h' });
                     res.send({ status: 200, data: token });
                 }
-                else{
+                else {
                     res.send({ status: 400, message: "password is wrong" });
                 }
-                
+
             }).catch((err) => {
                 res.send({ status: 400, message: "password is wrong" });
             });
@@ -82,9 +143,10 @@ class Usercontroller {
 
     findByIdAndUpdate(req, res) {
 
-        var { firstName, lastName, email, password, gender } = req.body;
+        var { firstName, mobileNumber, lastName, email, password, gender } = req.body;
 
         var userData = {
+            mobileNumber: mobileNumber,
             firstName: firstName,
             lastName: lastName,
             email: email,
@@ -108,15 +170,15 @@ class Usercontroller {
         else {
             // console.log("-el--->", req.files);
         }
-        if(password){
-            userData['password'] =  bcrypt.hashSync(password, 11);
+        if (password) {
+            userData['password'] = bcrypt.hashSync(password, 11);
         }
-        else{
-            console.log("-el--->",password );
+        else {
+            console.log("-el--->", password);
         }
-        usermodel.findByIdAndUpdate({ _id: mongoose.Types.ObjectId(req.params.userId)},{$set:userData}).then((data)=>{
+        usermodel.findByIdAndUpdate({ _id: mongoose.Types.ObjectId(req.params.userId) }, { $set: userData }).then((data) => {
             res.send({ status: 200, data: data });
-        }).catch((err)=>{
+        }).catch((err) => {
             res.send({ status: 400, message: err.message });
         })
     }

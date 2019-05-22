@@ -9,7 +9,7 @@ const userController = require('../controller/userController');
 
 router.post('/api/user',jsonMiddleware.verifyToken,middleware.any(),userController.insertUser);
 
-router.get('/api/user',jsonMiddleware.verifyToken,userController.getallUser);
+router.post('/api/allUserList',jsonMiddleware.verifyToken,userController.getallUser);
 
 router.post('/api/user/login',userController.login);
 

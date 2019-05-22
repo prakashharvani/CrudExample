@@ -21,6 +21,7 @@ export class AddUserComponent implements OnInit {
   ngOnInit() {
     this.addForm = this.fb.group({
       email: ['', Validators.required],
+      mobileNumber: ['',Validators.required],
       password: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -39,6 +40,7 @@ export class AddUserComponent implements OnInit {
       fd.append('firstName', this.addForm.value.firstName);
       fd.append('lastName', this.addForm.value.lastName);
       fd.append('email', this.addForm.value.email);
+      fd.append('mobileNumber', this.addForm.value.mobileNumber);
       fd.append('password', this.addForm.value.password);
       fd.append('gender', this.addForm.value.gender);
       fd.append('image', this.filedata);
@@ -81,5 +83,9 @@ export class AddUserComponent implements OnInit {
     } else {
       this.Toastr.error('Only Pdf is Allow');
     }
+  }
+
+  backToList() {
+    this.router.navigate(['list-user']);
   }
 }

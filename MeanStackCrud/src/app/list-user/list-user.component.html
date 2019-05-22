@@ -1,14 +1,18 @@
-<div class="col-md-12">
 
-  <h2> User Details</h2>
-  <button class="btn btn-danger" (click)="addUser()"> Add User</button>
+<br>
+<div class="col-md-12">
+<div style="text-align:center">
+	<h2> User Details</h2>
+	<hr>
+	<button class="btn btn-success" (click)="addUser()"> Add User</button> &nbsp;
+	<button class="btn btn-danger" (click)="logOut()"> LogOut</button>
+</div>
 
   <table class='table table-striped' id="usertable">
-
   </table>
 
   <div  id="m_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-		aria-hidden="true">
+		aria-hidden="true" data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
