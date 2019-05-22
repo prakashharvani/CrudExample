@@ -31,6 +31,7 @@ export class EditUserComponent implements OnInit {
 
       this.editForm = this.fb.group({
         email: ['', Validators.required],
+        mobileNumber: ['', Validators.required],
         password: [''],
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
@@ -48,6 +49,7 @@ export class EditUserComponent implements OnInit {
           this.editForm.patchValue({ email: this.result.email });
           // this.editForm.patchValue({ password: this.result.password });
           this.editForm.patchValue({ firstName: this.result.firstName });
+          this.editForm.patchValue({ mobileNumber: this.result.mobileNumber });
           this.editForm.patchValue({ lastName: this.result.lastName });
           this.editForm.patchValue({ gender: this.result.gender });
           // this.arr = this.result.image.split('/');
@@ -73,6 +75,7 @@ export class EditUserComponent implements OnInit {
       fd.append('firstName', this.editForm.value.firstName);
       fd.append('lastName', this.editForm.value.lastName);
       fd.append('email', this.editForm.value.email);
+      fd.append('mobileNumber', this.editForm.value.mobileNumber);
       fd.append('password', this.editForm.value.password);
       fd.append('gender', this.editForm.value.gender);
       if (this.filedata != undefined) {
@@ -129,5 +132,8 @@ export class EditUserComponent implements OnInit {
     else {
 
     }
+  }
+  backToList() {
+    this.router.navigate(['list-user']);
   }
 }

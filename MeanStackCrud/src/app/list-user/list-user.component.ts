@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit,NgZone } from '@angular/core';
+import { Component, OnInit, AfterViewInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { ToastrService } from 'ngx-toastr';
@@ -52,13 +52,24 @@ export class ListUserComponent implements OnInit, AfterViewInit {
       });
 
       $('#usertable').DataTable({
+        serverSide: true,
         ajax: {
-          'url': 'http://localhost:8080/api/user',
-          'type': 'GET',
+          'url': 'http://localhost:8080/api/allUserList',
+          'type': 'POST',
           'beforeSend': function (request) {
             const localdata = JSON.parse(localStorage.getItem('token'));
             request.setRequestHeader('Authorization', localdata);
           },
+          'dataFilter': function (data) {
+            const json = JSON.parse(data);
+            if (json['status'] === 200) {
+
+              json.recordsTotal = json.data.totalDocs;
+              json.recordsFiltered = json.data.totalDocs;
+              json.data = json.data.docs;
+            }
+            return JSON.stringify(json);
+          }
         },
         columns: [
           {
@@ -74,13 +85,17 @@ export class ListUserComponent implements OnInit, AfterViewInit {
             data: 'email'
           },
           {
+            title: 'Phone Numer',
+            data: 'mobileNumber'
+          },
+          {
             title: 'Gender',
             data: 'gender'
           }
         ],
         columnDefs: [
           {
-            targets: 4,
+            targets: 5,
             title: 'Image',
             orderable: !1,
             render: function (a, e, t, n) {
@@ -88,7 +103,7 @@ export class ListUserComponent implements OnInit, AfterViewInit {
             }
           },
           {
-            targets: 5,
+            targets: 6,
             title: 'Actions',
             orderable: !1,
             render: function (a, e, t, n) {
@@ -108,6 +123,9 @@ export class ListUserComponent implements OnInit, AfterViewInit {
     this.router.navigate(['add-user']);
   }
 
+  logOut() {
+    this.router.navigate(['login']);
+  }
 
   deleteUser(e) {
     $('#m_modal_6').show();
